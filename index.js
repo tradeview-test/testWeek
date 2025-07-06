@@ -11,7 +11,7 @@ if (process.env.COOKIES_BASE64 && !fs.existsSync(COOKIE_PATH)) {
     "utf-8"
   );
   fs.writeFileSync(COOKIE_PATH, decoded);
-  console.log("✅ cookies.json restored from Base64");
+  console.log("cookies.json restored from Base64");
 }
 
 async function saveCookies(cookies) {
@@ -28,7 +28,7 @@ async function loadCookies(page) {
 }
 
 const SHEET_ID = process.env.SHEET_ID;
-const SHEET_NAME = process.env.SHEET_NAME2 || "Sheet2";
+const SHEET_NAME = process.env.SHEET_NAME || "Sheet1";
 
 const auth = new google.auth.JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -72,7 +72,7 @@ async function updateSheet(results) {
 }
 
 async function processLinks(allLinks) {
-  const BATCH_SIZE = 20; // new browser every 50
+  const BATCH_SIZE = 20; // new browser every 20
   for (let i = 0; i < allLinks.length; i += BATCH_SIZE) {
     const linksChunk = allLinks.slice(i, i + BATCH_SIZE);
 
@@ -104,12 +104,12 @@ async function processLinks(allLinks) {
         try {
           result = await scrapeChart(page, link);
           updates.push({ rowIndex, ...result });
-          console.log(`✅ Row ${rowIndex}: ${result.status}`);
+          console.log(`Row ${rowIndex}: ${result.status}`);
           break;
         } catch (err) {
           retries++;
           console.error(
-            `❌ Row ${rowIndex} failed (attempt ${retries}):`,
+            `Row ${rowIndex} failed (attempt ${retries}):`,
             err.message
           );
         }
