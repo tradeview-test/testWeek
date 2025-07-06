@@ -28,7 +28,7 @@ async function loadCookies(page) {
 }
 
 const SHEET_ID = process.env.SHEET_ID;
-const SHEET_NAME = process.env.SHEET_NAME || "Sheet1";
+const SHEET_NAME = process.env.SHEET_NAME2 || "Sheet2";
 
 const auth = new google.auth.JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
