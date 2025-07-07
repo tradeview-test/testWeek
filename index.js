@@ -123,15 +123,5 @@ async function processLinks(allLinks) {
 
 (async () => {
   const links = await getLinks();
-
-  const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || "151");
-  const BATCH_INDEX = parseInt(process.env.BATCH_INDEX || "0");
-
-  const start = BATCH_INDEX * BATCH_SIZE;
-  const end = start + BATCH_SIZE;
-
-  const currentBatch = links.slice(start, end);
-
-  console.log(`🔄 Processing batch ${BATCH_INDEX} (${start} to ${end})`);
-  await processLinks(currentBatch);
+  await processLinks(links);
 })();

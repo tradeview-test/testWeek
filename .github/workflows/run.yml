@@ -1,16 +1,13 @@
-name: Run TradingView in Batches
+name: Run TradingView Sequentially
 
 on:
   schedule:
-    - cron: "30 10 * * 1-5"
+    - cron: "30 11 * * 5" # Every Friday at 5:00 PM IST
   workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        batch_index: [0, 1, 2, 3, 4]
 
     steps:
       - name: Checkout Code
@@ -31,8 +28,7 @@ jobs:
           echo "SHEET_NAME2=${{ secrets.SHEET_NAME2 }}" >> .env
           echo "GOOGLE_SERVICE_ACCOUNT_EMAIL=${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}" >> .env
           echo "GOOGLE_PRIVATE_KEY=\"${{ secrets.GOOGLE_PRIVATE_KEY }}\"" >> .env
-          echo "BATCH_INDEX=${{ matrix.batch_index }}" >> .env
-          echo "BATCH_SIZE=95" >> .env
+          echo "BATCH_SIZE=999999" >> .env
 
       - name: Restore cookies.json from base64
         run: echo "${{ secrets.COOKIES_BASE64 }}" | base64 -d > cookies.json
