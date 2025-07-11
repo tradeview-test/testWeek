@@ -71,7 +71,7 @@ async function updateSheet(results) {
   }
 }
 // ───── batch‑slice helpers ─────
-const ROWS_PER_BATCH = +process.env.ROWS_PER_BATCH || 250; // default 250
+const ROWS_PER_BATCH = +process.env.ROWS_PER_BATCH || 106; // default 250
 const BATCH_INDEX = +process.env.BATCH_INDEX || 0; // default first slice
 function inMyBatch(row) {
   const start = BATCH_INDEX * ROWS_PER_BATCH + 2; // rows start at 2
