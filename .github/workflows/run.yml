@@ -42,3 +42,5 @@ jobs:
 
       - name: Run Script
         run: node index.js
+        env:
+          BATCH_INDEX: ${{ matrix.batch }}
