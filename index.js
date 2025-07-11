@@ -46,7 +46,7 @@ async function getLinks() {
   const rows = res.data.values || [];
   return rows
     .map((row, i) => ({ rowIndex: i + 2, link: row[0] }))
-    .filter((entry) => !!entry.link);
+    .filter((e) => e.link && inMyBatch(e.rowIndex));
 }
 
 async function updateSheet(results) {
@@ -69,6 +69,14 @@ async function updateSheet(results) {
   } catch (err) {
     console.error("❌ Failed to update sheet:", err.message);
   }
+}
+// ───── batch‑slice helpers ─────
+const ROWS_PER_BATCH = +process.env.ROWS_PER_BATCH || 250; // default 250
+const BATCH_INDEX = +process.env.BATCH_INDEX || 0; // default first slice
+function inMyBatch(row) {
+  const start = BATCH_INDEX * ROWS_PER_BATCH + 2; // rows start at 2
+  const end = start + ROWS_PER_BATCH - 1;
+  return row >= start && row <= end;
 }
 
 async function processLinks(allLinks) {
