@@ -13,7 +13,7 @@ jobs:
         batch: [0, 1, 2, 3, 4]
 
     env:
-      ROWS_PER_BATCH: 106
+      ROWS_PER_BATCH: 151
 
     steps:
       - name: Checkout Code
